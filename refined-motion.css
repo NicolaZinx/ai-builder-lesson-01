@@ -1,0 +1,62 @@
+/* Restrained silver-blue glass; only ordinary slides after the native originals. */
+#dust, #dust .speck, #cursor-aura, #pointer-gold, .ambient .light {
+  display: none !important;
+  animation: none !important;
+}
+.cover:after { animation: none !important; }
+.surface {
+  --local-x: 50%; --local-y: 35%;
+  --tilt-x: 0deg; --tilt-y: 0deg; --cast-x: 0px; --cast-y: 12px;
+  transform: none;
+  transition: transform .32s ease-out, box-shadow .32s ease-out, border-color .3s ease-out;
+  box-shadow: 0 12px 30px -22px rgba(43,66,99,.20), inset 0 1px 0 rgba(255,255,255,.9);
+}
+.surface::before {
+  background: radial-gradient(ellipse 250px 180px at var(--local-x) var(--local-y),
+    rgba(255,255,255,.97) 0%, rgba(218,230,243,.78) 38%, rgba(180,200,222,.30) 62%, transparent 85%) !important;
+  opacity: .25;
+  animation: none !important;
+  transition: opacity .3s ease-out;
+}
+.surface::after {
+  background: radial-gradient(ellipse 270px 190px at var(--local-x) var(--local-y),
+    rgba(255,255,255,.7) 0%, rgba(228,238,248,.22) 48%, transparent 78%) !important;
+  opacity: 0;
+  transition: opacity .3s ease-out;
+}
+.surface.lit {
+  transform: perspective(1600px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y)) translateY(-.6px);
+  border-color: rgba(220,230,242,.96);
+  box-shadow: var(--cast-x) var(--cast-y) 34px -20px rgba(48,72,107,.24),
+    0 1px 4px -2px rgba(48,72,107,.12), inset 0 1px 0 rgba(255,255,255,.97);
+  transition: transform .18s ease-out, box-shadow .24s ease-out, border-color .25s ease-out;
+}
+.surface.lit::before { opacity: .65; }
+.surface.lit::after { opacity: .46; }
+.native-slide .surface, body.is-native .surface {
+  transform: none !important;
+  animation: none !important;
+  transition: none !important;
+}
+.native-slide .surface::before, .native-slide .surface::after,
+body.is-native .surface::before, body.is-native .surface::after { display: none !important; }
+@media (hover:none), (pointer:coarse) {
+  .surface::before { opacity: .25; animation: none !important; }
+  .surface::after { opacity: 0; }
+  .surface.pressed {
+    transform: scale(.995);
+    box-shadow: 0 7px 20px -17px rgba(43,66,99,.23), inset 0 1px 0 rgba(255,255,255,.9);
+    transition: transform .14s ease-out, box-shadow .14s ease-out;
+  }
+  .surface.pressed::after { opacity: .25; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .surface, .surface.lit, .surface.pressed, .surface::before, .surface::after {
+    transform: none !important; animation: none !important; transition: none !important;
+  }
+  .surface::before { opacity: .25 !important; }
+  .surface::after { opacity: 0 !important; }
+}
+@media (prefers-reduced-transparency:reduce) {
+  .surface::before, .surface::after { display: none !important; }
+}
