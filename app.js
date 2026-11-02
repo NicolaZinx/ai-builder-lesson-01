@@ -9,20 +9,20 @@ const sec=document.createElement('section'); sec.className=`slide ${s.kind||''} 
 if(s.kind==='native'){deck.append(sec);nativePlayer.mount(sec,s.id);continue;}
 let h=`<header class="slide-head"><p class="section-tag">${s.sourceId<4?'01 / 开场':s.sourceId<15?'02 / 理解游戏':s.sourceId<21?'03 / 拆解玩法':s.sourceId<30?'04 / AI协作':s.sourceId<34?'05 / 设计需求':s.sourceId<46?'06 / 开发迭代':s.sourceId<50?'07 / 测试与展示':'08 / 迁移与交付'}</p><h1>${esc(s.title)}</h1><p class="subtitle">${esc(s.sub)}</p></header>`;
 let content='';
-if(s.kind==='intro'){ h=`<div class="intro-stage"><img src="${esc(s.image)}" alt="${esc(s.title)}" draggable="false"></div>`;
+if(s.kind==='intro'){ h=`<div class="intro-stage"><img loading="lazy" src="${esc(s.image)}" alt="${esc(s.title)}" draggable="false"></div>`;
 }else if(s.kind==='poster'){
- h=`<div class="poster-stage"><img src="${esc(s.image)}" alt="${esc(s.title)}" draggable="false"></div>`;
+ h=`<div class="poster-stage"><img loading="lazy" src="${esc(s.image)}" alt="${esc(s.title)}" draggable="false"></div>`;
 }else if(s.kind==='cover'){
  h=`<p class="institution">${esc(s.footer)}</p><p class="cover-kicker">${esc(s.kicker)}</p><h1><em>AI</em> 游戏开发</h1><p class="workshop">${esc(s.sub)}</p><p class="presenter">${esc(s.presenter)}</p><div class="cover-bottom">${esc(s.date)}</div><div class="cover-art" aria-hidden="true"><span class="orbit orbit-one"></span><span class="orbit orbit-two"></span><div class="game-token"><i></i><b>+</b><small>CREATE / PLAY / ITERATE</small></div></div>`;
 }else{
- if(s.kind==='showcase') content=`<button class="showcase-preview open-game" data-game="${s.game}" data-title="${esc(s.demoTitle)}" aria-label="打开${esc(s.demoTitle)}"><img src="${s.image}" alt="${esc(s.demoTitle)}"><span class="experience-label">打开互动体验 <span>↗</span></span></button>`;
+ if(s.kind==='showcase') content=`<button class="showcase-preview open-game" data-game="${s.game}" data-title="${esc(s.demoTitle)}" aria-label="打开${esc(s.demoTitle)}"><img loading="lazy" src="${s.image}" alt="${esc(s.demoTitle)}"><span class="experience-label">打开互动体验 <span>↗</span></span></button>`;
  else if(s.kind==='showcase-video') content=`<video class="showcase-player" controls playsinline preload="metadata" poster="${s.poster}" src="${s.video}" aria-label="${esc(s.title)}"></video>`;
  else if(s.kind==='statement') content=`<p class="big">${esc(s.big)}</p>`;
- else if(s.kind==='gallery')content=`<div class="gallery-grid">${s.items.map(c=>`<article class="card"><img src="${c[2]}" alt="${esc(c[0])}游戏画面"><h2>${esc(c[0])}</h2><p>${esc(c[1])}</p></article>`).join('')}</div>`;
+ else if(s.kind==='gallery')content=`<div class="gallery-grid">${s.items.map(c=>`<article class="card"><img loading="lazy" src="${c[2]}" alt="${esc(c[0])}游戏画面"><h2>${esc(c[0])}</h2><p>${esc(c[1])}</p></article>`).join('')}</div>`;
  else if(s.kind==='table')content=`<div class="table-wrap card"><table><thead><tr>${s.headers.map(c=>`<th>${esc(c)}</th>`).join('')}</tr></thead><tbody>${s.rows.map(row=>`<tr>${row.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
  else if(s.kind==='prompt')content=`<div class="prompt-body"><div class="prompt-lines">${s.display.split('\n').map((x,i)=>`<article class="row"><span class="step-no">${i+1}</span><p>${esc(x)}</p></article>`).join('')}</div><div class="prompt-controls"><button class="primary copy-prompt" data-id="${s.id}">复制完整指令 <span>↗</span></button><details><summary>查看完整指令</summary><pre>${esc(s.prompt)}</pre></details></div></div>`;
- else if(s.kind==='demo')content=`<div class="split demo-split"><button class="game-preview open-game" data-game="${s.game}" data-title="${s.id===15?'校园补给跑':'概念配对'}" aria-label="试玩${s.id===15?'校园补给跑':'概念配对'}"><img src="${s.image}" alt="${s.id===15?'校园补给跑':'概念配对'}参考游戏界面"><span class="play-badge">▶</span></button><div class="stack">${s.cards.map(card).join('')}<button class="primary open-game" data-game="${s.game}" data-title="${s.id===15?'校园补给跑':'概念配对'}">打开游戏试玩 ↗</button></div></div>`;
- else if(s.image)content=`<div class="split"><figure class="image-panel"><img src="${s.image}" alt="${esc(s.caption)}"><figcaption>${esc(s.caption)}${s.link?` · <a href="${s.link[1]}" target="_blank" rel="noopener">${s.link[0]} ↗</a>`:''}</figcaption></figure><div class="stack">${s.cards.map(card).join('')}</div></div>`;
+ else if(s.kind==='demo')content=`<div class="split demo-split"><button class="game-preview open-game" data-game="${s.game}" data-title="${s.id===15?'校园补给跑':'概念配对'}" aria-label="试玩${s.id===15?'校园补给跑':'概念配对'}"><img loading="lazy" src="${s.image}" alt="${s.id===15?'校园补给跑':'概念配对'}参考游戏界面"><span class="play-badge">▶</span></button><div class="stack">${s.cards.map(card).join('')}<button class="primary open-game" data-game="${s.game}" data-title="${s.id===15?'校园补给跑':'概念配对'}">打开游戏试玩 ↗</button></div></div>`;
+ else if(s.image)content=`<div class="split"><figure class="image-panel"><img loading="lazy" src="${s.image}" alt="${esc(s.caption)}"><figcaption>${esc(s.caption)}${s.link?` · <a href="${s.link[1]}" target="_blank" rel="noopener">${s.link[0]} ↗</a>`:''}</figcaption></figure><div class="stack">${s.cards.map(card).join('')}</div></div>`;
  else content=cards(s);
  h+=`<div class="body">${content}${s.call?`<div class="callout">${esc(s.call)}</div>`:''}</div>`;
 }
